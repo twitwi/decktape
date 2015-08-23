@@ -1,7 +1,8 @@
 require.paths.push(phantom.libraryPath + "/libs/");
 
 var page = require("webpage").create(),
-    printer = require("printer").create(),
+//    printer = require("printer").create(),
+    printer = require("renderprinter"),
     system = require("system"),
     fs = require("fs"),
     Promise = require("promise");
