@@ -155,7 +155,14 @@ function loadAvailablePlugins(pluginPath) {
 }
 
 function createActivePlugin() {
-    for (var id in plugins) {
+    var sortedPlugins = Object.keys(plugins);
+    sortedPlugins = sortedPlugins.sort(function(a,b) {
+        var pa = plugins[a].priority || 0;
+        var pb = plugins[b].priority || 0;
+        return pb - pa;
+    });
+    for (var iid in sortedPlugins) {
+        var id = sortedPlugins[iid];
         if (id === "generic")
             continue;
         var plugin = plugins[id].create(page, options);
