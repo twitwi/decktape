@@ -19,12 +19,22 @@ RenderPrinter.prototype.printPage = function(page) {
     var base = ",,temp-slides/output-" + padIt(this.i);
     this.i += 1;
     var pdf = base + '.pdf';
-    page.render(pdf);
+    if (page.deckplusRasterized) {
+        var png = base + '.png';
+        page.render(png);
+        this._cmd('convert '+png+' '+pdf);
+    } else {
+        page.render(pdf);
+    }
     this.allPdfs.push(pdf);
 };
 
+RenderPrinter.prototype._cmd = function(what) {
+    console.log('\nDO: '+what);
+}
+
 RenderPrinter.prototype.end = function() {
-    console.log('DO: pdftk '+ this.allPdfs.concat(["cat", "output", this.outputFileName]).join(" "));
+    this._cmd('pdftk '+ this.allPdfs.concat(['cat', 'output', this.outputFileName]).join(' '));
 };
 
 module.exports = new RenderPrinter();
