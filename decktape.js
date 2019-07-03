@@ -11,7 +11,7 @@ const BufferReader = require('./libs/buffer'),
       os           = require('os'),
       parser       = require('./libs/nomnom'),
       path         = require('path'),
-      puppeteer    = require('puppeteer'),
+      puppeteer    = require('puppeteer-firefox'),
       URI          = require('urijs'),
       util         = require('util');
 
